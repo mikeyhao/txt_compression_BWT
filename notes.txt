@@ -1,0 +1,17 @@
+What should it ORD()?
+it can't ord $
+€ - termination
+£ - new line
+min/max ord = 32/126
+
+Suffix Array Generation:
+Run-Length Encoding:
+
+Compress Algorithm:
+1. Add a $ to the end of text
+2. Generate a suffix array with index
+3. Form a cyclic rotation with suffix array with index
+4. Concactenate final index together into a string
+5. Compress with run-length encoding
+
+Decompress Algorithm:
