@@ -2,7 +2,9 @@ What should it ORD()?
 it can't ord $
 € - termination
 £ - new line
-min/max ord = 32/126
+min/max ord = (10/32) /126
+    (10 is used rn for \n )
+post adjustment, min 0, max 96
 
 Suffix Array Generation:
 Run-Length Encoding:

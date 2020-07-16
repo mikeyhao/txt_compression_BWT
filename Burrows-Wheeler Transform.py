@@ -8,10 +8,39 @@ class BWT():
 
     def __init__(self, filename):
         # read file
-        self.txt = self.file_to_string(filename)
-        self.txt += "€"    # add termination
-        for t in self.txt:
-            pass
+        self.txt = self.file_to_string(filename) + "€" # add termination
+        self.suffix_array = []
+        self.string_array = []
+
+        # generate suffix array
+        for t in range(len(self.txt)):
+            self.string_array.append(self.txt[t])
+            self.suffix_array.append(t)
+
+        # sort first column of suffix array w/ counting sort
+        n = len(self.string_array)
+        buckets = [None] * 97
+        for i in range(len(buckets)):
+            buckets[i] = []
+        for i in range(n):
+            pos = self.ord2(self.string_array[i])
+            buckets[pos].append(self.suffix_array[i])
+        temp = []
+        for i in range(len(buckets)):
+            for j in buckets[i]:
+                temp.append(j)
+        print(self.string_array)
+        print(self.suffix_array)
+        self.suffix_array = temp
+        del temp # saving space
+        for i in self.suffix_array:
+            print(self.string_array[i], end="")
+        print("")
+        print(self.suffix_array)
+
+        # prefix doubling with mergesort
+        k = 1
+
         pass
 
     def file_to_string(self, filename):
@@ -23,11 +52,26 @@ class BWT():
         '''
         outputs a numeric representation of a character
         € = end of text
-        £ = new line
-        0 = represents
+
+        ord readjusted, original smallest was 10, changed '\n' to ord 1 instead
+        and made everything else -30 to save space! (10-31 all redundant)
         '''
-        pass
+        if char == '€':
+            rank = 0
+        elif char == "\n":
+            rank = 1
+        else:
+            rank = ord(char)-30
+        assert rank < 97, "invalid character found, check readme!"
+        return rank
+
+    def merge_sort(self, arr):
+        """
+        specialized merge sort for bwt
+        """
 
 if __name__ == "__main__":
-    bwt = BWT("texts\sample1.txt")
+    # bwt = BWT("texts\sample1.txt")
+    # bwt = BWT("texts\everytest.txt")
+    bwt = BWT("texts\mississippi.txt")
     pass
